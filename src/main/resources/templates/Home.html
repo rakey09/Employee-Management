@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .info-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f2f2f2;
+            border-radius: 8px;
+        }
+
+        .info-section p {
+            margin: 10px 0;
+        }
+
+        .info-section h3 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h2>Welcome to Employee Management System</h2>
+<div class="container">
+    <a th:href="@{/employees/create}">Add New Employee</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tempEmp :${Employees}">
+            <td th:text="${tempEmp.id}"></td>
+            <td th:text="${tempEmp.firstName}"></td>
+            <td th:text="${tempEmp.lastName}"></td>
+            <td th:text="${tempEmp.email}"></td>
+            <td th:text="${tempEmp.createdAt}"></td>
+            <td>
+                <form action="#" th:action="@{/employees/formForUpdate}" method="POST" style="display:inline-block;">
+                    <input type="hidden" name="id" th:value="${tempEmp.id}" />
+                    <button type="submit">Update</button>
+                </form>
+                <form action="#" th:action="@{/employees/delete}" method="POST" style="display:inline-block;">
+                    <input type="hidden" name="id" th:value="${tempEmp.id}" />
+                    <button type="submit"
+                            onclick="return confirm('Are you sure you want to delete this employee?')">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="info-section">
+        <h3>About Employee Management</h3>
+        <p>Employee management systems help organizations streamline their HR processes, allowing them to efficiently manage employee data such as personal details, job roles, and performance metrics.</p>
+        <p>With features like employee registration, updating information, and handling employee records, these systems are essential for maintaining smooth operational workflows within any company.</p>
+        <p>Effective employee management leads to improved productivity, reduced turnover, and better employee engagement.</p>
+    </div>
+</div>
+</body>
+</html>
